@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanji Practice - N5</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kanji Practice N5 (All 110 included)</h1>
+            <p>by: ボシット (アサドベクさんのがくせい)</p>
+            <br><br>
+            <div class="controls">
+                <button id="readerMode" class="mode-btn active">Reader Mode</button>
+                <button id="testMode" class="mode-btn">TEST Mode</button>
+            </div>
+        </header>
+
+      
+        <div id="readerView" class="view active">
+            <div class="sentence-display">
+                <div id="sentenceText" class="sentence-text">
+                </div>
+            </div>
+            <div class="controls-panel">
+                <button id="prevSentence" class="nav-btn">Previous</button>
+                <button id="nextSentence" class="nav-btn">Next</button>
+                <button id="toggleFurigana" class="toggle-btn">Hide Spelling</button>
+                <button id="toggleKanji" class="toggle-btn">ひらがな</button>
+            </div>
+            <div class="kanji-info" id="kanjiInfo">
+
+            </div>
+        </div>
+
+
+        <div id="testView" class="view">
+            <div class="test-header">
+                <div class="progress">Progress: <span id="currentQuestion">1</span>/<span id="totalQuestions">10</span></div>
+                <div class="score">Score: <span id="correctCount">0</span></div>
+            </div>
+            <div class="test-sentence">
+                <div id="testSentence" class="sentence-text">
+                 
+                </div>
+            </div>
+            <div class="options-grid" id="optionsGrid">
+              
+            </div>
+            <div class="test-feedback" id="testFeedback"></div>
+            <button id="nextTest" class="nav-btn hidden">Next</button>
+        </div>
+
+       
+        <div id="kanjiModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="kanji-header">
+                    <div class="kanji-character" id="modalKanji">字</div>
+                    <div class="kanji-readings">
+                        <div>Onyomi: <span id="onyomi"></span></div>
+                        <div>Kunyomi: <span id="kunyomi"></span></div>
+                        <div>Meaning: <span id="meaning"></span></div>
+                    </div>
+                </div>
+                <div class="stroke-order">
+                    <h3>Writing Order</h3>
+                    <div id="strokeAnimation" class="stroke-container">
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="kanji-data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
