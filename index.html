@@ -3,57 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanji Practice - N5</title>
+    <title>Kanji O'rganish - N5</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Stroke draw library -->
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.2.0/dist/hanzi-writer.min.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Kanji Practice N5 (All 110 included)</h1>
-            <p>by: ボシット (アサドベクさんのがくせい)</p>
+            <button id="returnToHub" class="modern-back-btn">
+                <span class="back-arrow">←</span>
+            </button>
+
+            <h1>N5 daraja Kanjilarini o'rganamiz (110ta)</h1>
+            <p>Muallif: ボシット (アサドベクさんのがくせい)</p>
+
             <br><br>
             <div class="controls">
-                <button id="readerMode" class="mode-btn active">Reader Mode</button>
-                <button id="testMode" class="mode-btn">TEST Mode</button>
+                <button id="readerMode" class="mode-btn active">📚 O'qish</button>
+                <button id="testMode" class="mode-btn">📝TEST</button>
+                <button id="flashcardMode" class="mode-btn">🔖Flash Kartalar</button>
+                <button id="writingMode" class="mode-btn">✍️ Yozish</button>
             </div>
         </header>
 
-      
+        <!-- Reader View -->
         <div id="readerView" class="view active">
             <div class="sentence-display">
-                <div id="sentenceText" class="sentence-text">
-                </div>
+                <div id="sentenceText" class="sentence-text"></div>
             </div>
             <div class="controls-panel">
-                <button id="prevSentence" class="nav-btn">Previous</button>
-                <button id="nextSentence" class="nav-btn">Next</button>
-                <button id="toggleFurigana" class="toggle-btn">Hide Spelling</button>
+                <button id="prevSentence" class="nav-btn">Oldingisi</button>
+                <button id="nextSentence" class="nav-btn">Keyingisi</button>
+                <button id="toggleFurigana" class="toggle-btn">Talaffuzni yashirish</button>
                 <button id="toggleKanji" class="toggle-btn">ひらがな</button>
             </div>
-            <div class="kanji-info" id="kanjiInfo">
-
-            </div>
+            <div class="kanji-info" id="kanjiInfo"></div>
         </div>
 
-
+        <!-- Test Mode -->
         <div id="testView" class="view">
             <div class="test-header">
                 <div class="progress">Progress: <span id="currentQuestion">1</span>/<span id="totalQuestions">10</span></div>
-                <div class="score">Score: <span id="correctCount">0</span></div>
+                <div class="score">Hisob: <span id="correctCount">0</span></div>
             </div>
             <div class="test-sentence">
-                <div id="testSentence" class="sentence-text">
-                 
-                </div>
+                <div id="testSentence" class="sentence-text"></div>
             </div>
-            <div class="options-grid" id="optionsGrid">
-              
-            </div>
+            <div class="options-grid" id="optionsGrid"></div>
             <div class="test-feedback" id="testFeedback"></div>
-            <button id="nextTest" class="nav-btn hidden">Next</button>
+            <button id="nextTest" class="nav-btn hidden">Keyingisi</button>
         </div>
 
-       
+        <!-- Flashcard Mode -->
+        <div id="flashcardView" class="view">
+            <div class="flashcard-header">
+                <h2>Kanji Flash kartalar</h2>
+                <div class="flashcard-controls">
+                    <button id="shuffleCards" class="nav-btn">Random</button>
+                    <span class="card-counter">Karta: <span id="currentCard">1</span>/110</span>
+                </div>
+            </div>
+            
+            <div class="flashcard-container">
+                <div class="flashcard" id="flashcard">
+                    <div class="flashcard-front">
+                        <div class="kanji-big" id="flashcardKanji">字</div>
+                    </div>
+                    <div class="flashcard-back">
+                        <div class="kanji-big" id="backKanji">字</div>
+                        <div class="kanji-details">
+                            <div class="reading"><strong>Onyomi:</strong> <span id="backOnyomi"></span></div>
+                            <div class="reading"><strong>Kunyomi:</strong> <span id="backKunyomi"></span></div>
+                            <div class="meaning"><strong>Ma'nosi:</strong> <span id="backMeaning"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flashcard-actions">
+                <button id="prevCard" class="nav-btn">Oldingisi</button>
+                <button id="flipCard" class="nav-btn flip-btn">Aylantirish</button>
+                <button id="nextCard" class="nav-btn">Keyingisi</button>
+            </div>
+        </div>
+
+        <!-- Writing Mode -->
+      <!-- Writing Mode -->
+<div id="writingView" class="view">
+    <h2>Kanji Yozish Mashqi</h2>
+
+    <div class="writing-box">
+        <div>
+            <h4>Strokes</h4>
+            <div id="strokeBox" style="width:200px;height:200px;margin-bottom:10px;"></div>
+            <button id="playStrokeOrder" class="nav-btn">Ko'rsatish</button>
+        </div>
+
+        <div>
+            <h4>Siz yozing</h4>
+            <div id="writeBox" style="width:200px;height:200px;border:1px solid #333;"></div>
+            <button id="clearWriting" class="nav-btn">Tozalash</button>
+           
+        </div>
+    </div>
+
+    <div style="margin-top:12px;">
+        <button id="prevWriteKanji" class="nav-btn">Oldingisi</button>
+        <button id="nextWriteKanji" class="nav-btn">Keyingisi</button>
+        <span id="writeKanjiLabel"></span>
+    </div>
+</div>
+
+        <!-- Kanji Modal -->
         <div id="kanjiModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -62,17 +125,16 @@
                     <div class="kanji-readings">
                         <div>Onyomi: <span id="onyomi"></span></div>
                         <div>Kunyomi: <span id="kunyomi"></span></div>
-                        <div>Meaning: <span id="meaning"></span></div>
+                        <div>Ma'nosi: <span id="meaning"></span></div>
                     </div>
                 </div>
                 <div class="stroke-order">
-                    <h3>Writing Order</h3>
-                    <div id="strokeAnimation" class="stroke-container">
-                      
-                    </div>
+                    <h3>Yozilishi</h3>
+                    <div id="strokeAnimation" class="stroke-container"></div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <script src="kanji-data.js"></script>
